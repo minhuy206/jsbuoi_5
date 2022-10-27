@@ -29,30 +29,23 @@ document.getElementById("btnCalScore").onclick = function () {
     priorityAreaPoint,
     prioritySubjectPoint
   );
-
-  var infoValidScore = checkValidScore(score1St, score2Nd, score3Rd);
-
   var infoPassed = checkPassed(totalScore, score);
-
-  document.getElementById("infoScore").innerHTML = "";
-  var infoScore = document.createElement("p");
-  if (infoValidScore == null) {
-    infoScore.innerHTML =
-      infoPassed + " và có tổng điểm là " + totalScore + " điểm";
-  } else if (infoValidScore == 0) {
-    infoScore.innerHTML = "";
+  if (score1St > 10 || score2Nd > 10 || score3Rd > 10) {
+    alert("Vui lòng kiểm tra lại điểm đã nhập");
   } else {
-    infoScore.innerHTML = infoValidScore;
+    document.getElementById("infoScore").innerHTML = "";
+    var infoScore = document.createElement("p");
+    infoScore.innerHTML =
+      infoPassed + " Có tổng điểm là " + totalScore + " điểm";
+    document.getElementById("infoScore").appendChild(infoScore);
   }
-  document.getElementById("infoScore").appendChild(infoScore);
 };
-
 function checkPassed(totalScore, score) {
   var checkPassed = "";
   if (totalScore >= score) {
-    checkPassed = "Thí sinh đã đậu";
+    checkPassed = "Thí sinh đã đậu.";
   } else {
-    checkPassed = "Thí sinh đã rớt";
+    checkPassed = "Thí sinh đã rớt.";
   }
   return checkPassed;
 }
@@ -64,20 +57,14 @@ function calTotalScore(
   priorityAreaPoint,
   prioritySubjectPoint
 ) {
-  var totalScore =
-    score1St + score2Nd + score3Rd + priorityAreaPoint + prioritySubjectPoint;
-  return totalScore;
-}
-
-function checkValidScore(score1St, score2Nd, score3Rd) {
-  var infoValidScore = null;
-  if (score1St > 10 || score2Nd > 10 || score3Rd > 10) {
-    infoValidScore = "0";
-    alert("Vui lòng kiểm tra lại điểm đã nhập");
-  } else if (score1St == 0 || score2Nd == 0 || score3Rd == 0) {
-    infoValidScore = "Thí sinh đã rớt tốt nghiệp";
+  var totalScore;
+  if (score1St == 0 || score2Nd == 0 || score3Rd == 0) {
+    totalScore = "Thí sinh đã rớt tốt nghiệp";
+  } else {
+    totalScore =
+      score1St + score2Nd + score3Rd + priorityAreaPoint + prioritySubjectPoint;
   }
-  return infoValidScore;
+  return totalScore;
 }
 
 /**
