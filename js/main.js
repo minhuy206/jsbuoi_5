@@ -82,6 +82,12 @@ function calTotalScore(
    => price = 50 * 500 + 50 * 650 + 100 * 850 + 150 * 1100 + (amountUsedKWh - 150) * 1300;
 *  -Đầu ra: in ra màn hình tiền cần trả
  */
+const kWh_1_cost = 500;
+const kWh_2_cost = 650;
+const kWh_3_cost = 850;
+const kWh_4_cost = 1100;
+const kWh_5_cost = 1300;
+
 document.getElementById("btnCalPrice").onclick = function () {
   var amountUsedKWh = document.getElementById("amountUsedKWh").value * 1;
   var price = calPrice(amountUsedKWh);
@@ -94,24 +100,30 @@ document.getElementById("btnCalPrice").onclick = function () {
 function calPrice(amountUsedKWh) {
   var price;
   if (amountUsedKWh <= 50) {
-    price = amountUsedKWh * 500;
+    price = amountUsedKWh * kWh_1_cost;
   } else if (amountUsedKWh > 50 && amountUsedKWh <= 100) {
-    price = 50 * 500 + (amountUsedKWh - 50) * 650;
+    price = 50 * kWh_1_cost + (amountUsedKWh - 50) * kWh_2_cost;
   } else if (amountUsedKWh > 100 && amountUsedKWh <= 200) {
-    price = 50 * 500 + 50 * 650 + (amountUsedKWh - 100) * 850;
+    price =
+      50 * kWh_1_cost + 50 * kWh_2_cost + (amountUsedKWh - 100) * kWh_3_cost;
   } else if (amountUsedKWh > 200 && amountUsedKWh <= 350) {
-    price = 50 * 500 + 50 * 650 + 100 * 850 + (amountUsedKWh - 200) * 1100;
+    price =
+      50 * kWh_1_cost +
+      50 * kWh_2_cost +
+      100 * kWh_3_cost +
+      (amountUsedKWh - 200) * kWh_4_cost;
   } else if (amountUsedKWh > 350) {
     price =
-      50 * 500 +
-      50 * 650 +
-      100 * 850 +
-      150 * 1100 +
-      (amountUsedKWh - 150) * 1300;
+      50 * kWh_1_cost +
+      50 * kWh_2_cost +
+      100 * kWh_3_cost +
+      150 * kWh_4_cost +
+      (amountUsedKWh - 150) * kWh_5_cost;
   }
-  var formatCurrency = new Intl.NumberFormat("vn-VND", {
+  const formatCurrency = new Intl.NumberFormat("vn-VN", {
     style: "currency",
     currency: "VND",
   });
+
   return formatCurrency.format(price);
 }
